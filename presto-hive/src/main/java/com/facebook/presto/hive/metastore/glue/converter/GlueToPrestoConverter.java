@@ -49,7 +49,7 @@ public final class GlueToPrestoConverter
                 .setDatabaseName(glueDb.getName())
                 .setLocation(Optional.ofNullable(glueDb.getLocationUri()))
                 .setComment(Optional.ofNullable(glueDb.getDescription()))
-                .setParameters(glueDb.getParameters())
+                .setParameters(firstNonNull(glueDb.getParameters(), ImmutableMap.of()))
                 .setOwnerName(PUBLIC_OWNER)
                 .setOwnerType(PrincipalType.ROLE)
                 .build();
@@ -68,7 +68,7 @@ public final class GlueToPrestoConverter
                 .setDataColumns(sd.getColumns().stream()
                         .map(GlueToPrestoConverter::convertColumn)
                         .collect(toList()))
-                .setParameters(glueTable.getParameters())
+                .setParameters(firstNonNull(glueTable.getParameters(), ImmutableMap.of()))
                 .setViewOriginalText(Optional.ofNullable(glueTable.getViewOriginalText()))
                 .setViewExpandedText(Optional.ofNullable(glueTable.getViewExpandedText()));
 
