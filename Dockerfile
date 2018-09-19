@@ -31,6 +31,8 @@ RUN mkdir -p $PRESTO_HOME && \
    git checkout ${CAMPANJA_BRANCH} && \
    ./mvnw package -DskipTests && \
    mv presto-server/target/presto-server-*-SNAPSHOT/* $PRESTO_HOME && \
+   mkdir -p ${PRESTO_HOME}/plugin/presto-247-experiment && \
+   mv presto-247-experiment.jar $PRESTO_HOME/plugin/presto-247-experiment/ && \
    cd .. && \
    rm -rf presto && \
    cd .. && \
